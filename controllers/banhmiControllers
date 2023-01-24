@@ -1,0 +1,77 @@
+/////////////////////////////////////
+//// Import Dependencies         ////
+/////////////////////////////////////
+const express = require('express')
+const Banhmi = require('../models/banhmi')
+require('dotenv').config()
+
+/////////////////////////////////////
+//// Create Router               ////
+/////////////////////////////////////
+const router = express.Router()
+
+// SEED Route
+router.get('/seed', (req, res) => {
+    const startBanhmis = [
+        {
+            vietName: 'Thit Nguoi', englishName: 'Assorted Vietnamese Ham',
+            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            price: 6
+        },
+        { 
+            vietName: 'Xiu Mai', englishName: 'Meatball',
+            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            price: 6
+        }, 
+        { 
+            vietName: 'Xa Xiu', englishName: 'BBQ Pork',
+            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            price: 6
+        }, 
+        { 
+            vietName: 'Thit Nuong', englishName: 'Charbroiled Pork',
+            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            price: 6
+        }, 
+        { 
+            vietName: 'Bi', englishName: 'Shredded Pork with Skin',
+            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            price: 6
+        }, 
+        { 
+            vietName: 'Ga', englishName: 'Chicken',
+            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            price: 6
+        }, 
+    ]
+    Banhmi.deleteMany({})
+        .then((data) => {
+            Banhmi.create(startBanhmis)
+                .then(data => {
+                    console.log('Here are the created banh mis: \n', data)
+                    res.json(data)
+
+                })
+                .catch(err => {
+                    console.log('The following error occurred: \n', err)
+                })
+        })
+    
+})
+
+// INDEX
+router.get('/', (req, res) => {
+    Banhmi.find({})
+        .then((banhmis) => {
+            res.json( {banhmis: banhmis})
+        })
+        .catch(err => {
+            res.json({ err })
+        })
+})
+
+
+//////////////////////////////
+//// Export Router        ////
+//////////////////////////////
+module.exports = router

@@ -4,6 +4,7 @@
 require("dotenv").config() // make env variables available
 const express = require("express")
 const middleware = require('./utils/middleware')
+const BanhmiRouter = require('./controllers/banhmiControllers')
 const ExampleRouter = require('./controllers/example')
 const UserRouter = require('./controllers/user')
 const User = require("./models/user")
@@ -21,6 +22,7 @@ middleware(app)
 //    Routes      //
 ////////////////////
 
+app.use('/banhmis', BanhmiRouter)
 app.use('/auth', UserRouter)
 app.use('/examples', ExampleRouter)
 
