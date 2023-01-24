@@ -13,35 +13,36 @@ const router = express.Router()
 // SEED Route
 router.get('/seed', (req, res) => {
     // array of starter banh mis
+    const banhMiVegs = ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise']
     const startBanhmis = [
         {
             viet: 'Thit Nguoi', english: 'Assorted Vietnamese Ham',
-            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            includes: banhMiVegs,
             price: 6
         },
         { 
             viet: 'Xiu Mai', english: 'Meatball',
-            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            includes: banhMiVegs,
             price: 6
         }, 
         { 
             viet: 'Xa Xiu', english: 'BBQ Pork',
-            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            includes: banhMiVegs,
             price: 6
         }, 
         { 
             viet: 'Thit Nuong', english: 'Charbroiled Pork',
-            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            includes: banhMiVegs,
             price: 6
         }, 
         { 
             viet: 'Bi', english: 'Shredded Pork with Skin',
-            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            includes: banhMiVegs,
             price: 6
         }, 
         { 
             viet: 'Ga', english: 'Chicken',
-            includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
+            includes: banhMiVegs,
             price: 6
         }, 
     ]
@@ -68,7 +69,7 @@ router.get('/seed', (req, res) => {
 // Read -> finds and displays all banhmis
 router.get('/', (req, res) => {
     Banhmi.find({})
-        .then((banhmis) => {
+        .then(banhmis => {
             res.json( {banhmis: banhmis})
         })
         .catch(err => {
@@ -82,11 +83,25 @@ router.post('/', (req, res) => {
     const newBanhmi = req.body
     console.log('This is req.body aka newBanhmi \n', newBanhmi)
     Banhmi.create(newBanhmi)
-        .then((banhmi) => {
+        .then(banhmi => {
             res.status(201).json({ banhmi: banhmi.toObject() })
         })
         .catch(err => {
             console.log('The following error occurred: \n', err)
+            res.json({ err })
+        })
+})
+
+// UPDATE route
+// Update a specific banhmi
+router.put('/:id', (req, res) => {
+    const id = req.params.id
+    Banhmi.findByIdAndUpdate(id, req.body, { new: true })
+        .then(banhmi => {
+            res.sendStatus(204)
+        })
+        .catch(err => {
+            console.log(err)
             res.json({ err })
         })
 })
