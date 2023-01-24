@@ -4,36 +4,28 @@ const mongoose = require('./connection')
 // destructure the schema and model constructors from mongoose
 const { Schema, model } = mongoose
 
-const banhmisSchema = new Schema(
-	{
-		vietName: { 
-            type: String, 
-            required: true 
+// banhmi schema
+const banhmiSchema = new Schema({
+		viet: { 
+            type: String
         },
-		englishName: { 
-            type: String, 
-            required: true 
-        
+		english: { 
+            type: String
         },
         includes: { 
-            type: Array, 
-            required: true 
+            type: Array
         },
 		price: { 
-            type: Number, 
-            required: true 
+            type: Number
         }
         // ,
 		// owner: {
 		// 	type: Schema.Types.ObjectID,
 		// 	ref: 'User',
 		// }
-	},
-	{ timestamps: true }
+	}, { timestamps: true })
 
-)
-
-const Banhmi = model('Banhmi', banhmisSchema)
+const Banhmi = model('Banhmi', banhmiSchema)
 
 /////////////////////////////////
 // Export our Model

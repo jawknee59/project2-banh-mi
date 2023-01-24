@@ -2,8 +2,8 @@
 //// Import Dependencies         ////
 /////////////////////////////////////
 const express = require('express')
-const Banhmi = require('../models/banhmi')
 require('dotenv').config()
+const Banhmi = require('../models/banhmi')
 
 /////////////////////////////////////
 //// Create Router               ////
@@ -12,60 +12,81 @@ const router = express.Router()
 
 // SEED Route
 router.get('/seed', (req, res) => {
+    // array of starter banh mis
     const startBanhmis = [
         {
-            vietName: 'Thit Nguoi', englishName: 'Assorted Vietnamese Ham',
+            viet: 'Thit Nguoi', english: 'Assorted Vietnamese Ham',
             includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
             price: 6
         },
         { 
-            vietName: 'Xiu Mai', englishName: 'Meatball',
+            viet: 'Xiu Mai', english: 'Meatball',
             includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
             price: 6
         }, 
         { 
-            vietName: 'Xa Xiu', englishName: 'BBQ Pork',
+            viet: 'Xa Xiu', english: 'BBQ Pork',
             includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
             price: 6
         }, 
         { 
-            vietName: 'Thit Nuong', englishName: 'Charbroiled Pork',
+            viet: 'Thit Nuong', english: 'Charbroiled Pork',
             includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
             price: 6
         }, 
         { 
-            vietName: 'Bi', englishName: 'Shredded Pork with Skin',
+            viet: 'Bi', english: 'Shredded Pork with Skin',
             includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
             price: 6
         }, 
         { 
-            vietName: 'Ga', englishName: 'Chicken',
+            viet: 'Ga', english: 'Chicken',
             includes: ['daikon','carrot', 'onion','jalapeno','cilantro','house mayonnaise'],
             price: 6
         }, 
     ]
+    // delete every banh mis in the database
     Banhmi.deleteMany({})
-        .then((data) => {
+        .then(() => {
+            // create the seed data for banhmis
             Banhmi.create(startBanhmis)
+                // promise chain for our db, success and failures
                 .then(data => {
-                    console.log('Here are the created banh mis: \n', data)
+                    // console.log('Here are the created banh mis: \n', data)
                     res.json(data)
 
                 })
                 .catch(err => {
-                    console.log('The following error occurred: \n', err)
+                    // console.log('The following error occurred: \n', err)
+                    res.json({ err })
                 })
         })
     
 })
 
-// INDEX
+// INDEX route 
+// Read -> finds and displays all banhmis
 router.get('/', (req, res) => {
     Banhmi.find({})
         .then((banhmis) => {
             res.json( {banhmis: banhmis})
         })
         .catch(err => {
+            res.json({ err })
+        })
+})
+
+// CREATE route 
+// Create -> receives a request body, and creates a new document in the database
+router.post('/', (req, res) => {
+    const newBanhmi = req.body
+    console.log('This is req.body aka newBanhmi \n', newBanhmi)
+    Banhmi.create(newBanhmi)
+        .then((banhmi) => {
+            res.status(201).json({ banhmi: banhmi.toObject() })
+        })
+        .catch(err => {
+            console.log('The following error occurred: \n', err)
             res.json({ err })
         })
 })
