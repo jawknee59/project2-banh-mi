@@ -93,7 +93,7 @@ router.post('/', (req, res) => {
 })
 
 // UPDATE route
-// Update a specific banhmi
+// Update -> a specific banhmi
 router.put('/:id', (req, res) => {
     const id = req.params.id
     Banhmi.findByIdAndUpdate(id, req.body, { new: true })
@@ -107,12 +107,26 @@ router.put('/:id', (req, res) => {
 })
 
 // DELETE route
-// Delete a specific banhmi
+// Delete -> a specific banhmi
 router.delete('/:id', (req, res) => {
     const id = req.params.id
     Banhmi.findByIdAndRemove(id)
         .then(() => {
             res.sendStatus(204)
+        })
+        .catch(err => {
+            // console.log(err)
+            res.json({ err })
+        })
+})
+
+// SHOW route
+// Read -> finds and displays a single resource
+router.get('/:id', (req, res) => {
+    const id = req.params.id
+    Banhmi.findById(id)
+        .then(banhmi => {
+            res.json({ banhmi: banhmi })
         })
         .catch(err => {
             // console.log(err)
