@@ -26,7 +26,7 @@
             <hr>
             {% if banhmi.reviews.length > 0 %}
                 {% for review in banhmi.reviews %}
-                    {% render '../review.liquid', review: review, userid: userId, banhmi: banhmi %}
+                    {% render '../review.liquid', review: review, userId: userId, banhmi: banhmi %}
                 {% endfor %}
 
             {% else %}

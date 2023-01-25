@@ -68,19 +68,24 @@ router.delete('/delete/:banhmiId/:reviewId', (req, res) => {
                     // we can use another built in method - remove()
                     theReview.remove()
                     banhmi.save()
-                    res.sendStatus(204) //send 204 no content
+                    // res.sendStatus(204) //send 204 no content
+                    res.redirect(`/banhmis/${banhmi.id}`)
                 } else {
                     // otherwise send a 401 - unauthorized status
-                    res.sendStatus(401)
+                    // res.sendStatus(401)
+                    res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20review`)
+
                 }
             } else {
                 // otherwise send a 401 - unauthorized status
-                res.sendStatus(401)
+                //res.sendStatus(401)
+                res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20review`)
             }
         })
         .catch(err => {
             console.log(err)
-            res.status(400).json(err)
+            //res.status(400).json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
