@@ -2,21 +2,21 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
         <a href="/" class="navbar-brand">Home</a>
+        <a href="/banhmis" class="nav-link text-light me-3">Banh Mi</a>
         {% if loggedIn %}
-        <a href="/examples/mine" class="nav-link text-light me-3">Hello {{ username }} </a>
+        <a class="nav-link text-light me-3">Hello {{ username }} </a>
         {% endif %}
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if loggedIn %}
-                <a href="/banhmis" class="nav-link text-light me-3">Banh Mi</a>
-                <a href="/banhmis/reviews" class="nav-link text-light me-3">Reviews</a>
                 <a href="/auth/logout" class="nav-link text-light me-3">Log Out</a>
             {% else %}
-                <a href="/banhmis" class="nav-link text-light me-3">Banh Mi</a>
-                <a href="/auth/signup" class="nav-link text-light me-3">Sign Up</a>
                 <a href="/auth/login" class="nav-link text-light me-3">Sign In</a>
+                <a href="/auth/signup" class="nav-link text-light me-3">Sign Up</a>
             {% endif %}
         </div>
     </div>
