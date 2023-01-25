@@ -17,12 +17,11 @@ const banhmiSchema = new Schema({
         },
 		price: { 
             type: Number
-        }
-        // ,
-		// owner: {
-		// 	type: Schema.Types.ObjectID,
-		// 	ref: 'User',
-		// }
+        },
+		owner: {
+			type: Schema.Types.ObjectID,
+			ref: 'User',
+		}
 	}, { timestamps: true })
 
 const Banhmi = model('Banhmi', banhmiSchema)
