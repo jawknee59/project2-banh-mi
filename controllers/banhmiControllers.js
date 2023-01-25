@@ -169,6 +169,7 @@ router.delete('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id
     Banhmi.findById(id)
+        .populate('reviews.author', 'username')
         .then(banhmi => {
             // res.json({ banhmi: banhmi })
             res.render('banhmi/show.liquid', { banhmi })
