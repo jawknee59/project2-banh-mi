@@ -11,7 +11,9 @@ const bcrypt = require('bcryptjs')
 const router = express.Router()
 
 
-// Routes
+/////////////////////////////////////
+//// Routes                      ////
+/////////////////////////////////////
 
 // GET to render the signup form
 router.get('/signup', (req, res) => {

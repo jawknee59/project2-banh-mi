@@ -1,5 +1,6 @@
 // import dependencies
 const mongoose = require('./connection')
+const reviewSchema = require('./review')
 
 // destructure the schema and model constructors from mongoose
 const { Schema, model } = mongoose
@@ -21,7 +22,8 @@ const banhmiSchema = new Schema({
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',
-		}
+		},
+        reviews: [reviewSchema]
 	}, { timestamps: true })
 
 const Banhmi = model('Banhmi', banhmiSchema)

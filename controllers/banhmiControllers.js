@@ -10,6 +10,10 @@ const Banhmi = require('../models/banhmi')
 /////////////////////////////////////
 const router = express.Router()
 
+/////////////////////////////////////
+//// Routes                      ////
+/////////////////////////////////////
+
 // SEED Route
 router.get('/seed', (req, res) => {
     // array of starter banh mis
@@ -75,6 +79,8 @@ router.get('/seed', (req, res) => {
 // Read -> finds and displays all banhmis
 router.get('/', (req, res) => {
     Banhmi.find({})
+        .populate('owner', 'username')
+        .populate('reviews.author', '-password')
         .then(banhmis => {
             res.json( {banhmis: banhmis})
         })
