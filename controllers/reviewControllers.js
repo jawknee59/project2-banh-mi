@@ -37,7 +37,8 @@ router.post('/:banhmiId', (req, res) => {
             })
             // respond with a 201 and the banhmi itself
             .then(banhmi => {
-                res.status(201).json({ banhmi: banhmi })
+                // res.status(201).json({ banhmi: banhmi })
+                res.redirect(`/banhmis/${banhmi.id}`)
             })
             // catch and handle any errors
             .catch(err => {

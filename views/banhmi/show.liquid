@@ -1,0 +1,37 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-md">
+    <h2 class="card-header mt-5">{{ banhmi.viet }}</h2>
+        <div class="card-body">
+            <h5 class="card-title">{{ banhmi.english }}</h5>
+            <p class="card-text me-3">
+                <b>Includes:</b> 
+                {% for item in banhmi.includes limit: banhmi.includes.length %}
+                    {{ item }}, 
+                {% endfor %}
+            </p>
+            <p class="card-text">
+                ${{ banhmi.price }} 
+            </p>
+            <hr>
+        <form action="/reviews/{{ banhmi.id }}" method="POST">
+            <fieldset>
+                <legend>Add Review</legend>
+                <label class="form-label">review:</label>
+                <input type="text" name="note" class="form-control mb-2">
+            </fieldset>
+            <input type="submit" class="btn btn-success" value="add review">
+        </form>
+            
+            <hr>
+            {% if banhmi.reviews.length > 0 %}
+                {% for review in banhmi.reviews %}
+                    {% render '../review.liquid', review: review, userid: userId, banhmi: banhmi %}
+                {% endfor %}
+
+            {% else %}
+                <small>no reviews yet...</small>
+            {% endif %}
+        </div>
+</div>
+{% endblock %}

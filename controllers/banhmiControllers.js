@@ -170,7 +170,8 @@ router.get('/:id', (req, res) => {
     const id = req.params.id
     Banhmi.findById(id)
         .then(banhmi => {
-            res.json({ banhmi: banhmi })
+            // res.json({ banhmi: banhmi })
+            res.render('banhmi/show.liquid', { banhmi })
         })
         .catch(err => {
             // console.log(err)

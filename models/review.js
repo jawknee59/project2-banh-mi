@@ -10,9 +10,8 @@ const { Schema } = mongoose
 const reviewSchema = new Schema({
     rating: {
         type: Number,
-        required: true
     },
-    review: {
+    note: {
         type: String,
         required: true
     },
