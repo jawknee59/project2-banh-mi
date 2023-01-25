@@ -167,12 +167,13 @@ router.delete('/:id', (req, res) => {
 // SHOW route
 // Read -> finds and displays a single resource
 router.get('/:id', (req, res) => {
+    const { username, loggedIn, userId} = req.session
     const id = req.params.id
     Banhmi.findById(id)
         .populate('reviews.author', 'username')
         .then(banhmi => {
             // res.json({ banhmi: banhmi })
-            res.render('banhmi/show.liquid', { banhmi })
+            res.render('banhmi/show.liquid', { banhmi, ...req.session })
         })
         .catch(err => {
             // console.log(err)
