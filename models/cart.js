@@ -11,10 +11,6 @@ const cartSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
-    totalPrice: {
-        type: Number,
-        default: 0
-    },
     items: [{
         item: {
             type: Schema.Types.ObjectId,
@@ -28,5 +24,14 @@ const cartSchema = new Schema ({
                 default: 0
             }
         }
-    }]
+    }],
+    totalPrice: {
+        type: Number,
+        default: 0
+    }
 })
+
+////////////////////////////////////
+//// Export Schema              ////
+////////////////////////////////////
+module.exports = cartSchema
