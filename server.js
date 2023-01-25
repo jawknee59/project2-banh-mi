@@ -8,6 +8,7 @@ const BanhmiRouter = require('./controllers/banhmiControllers')
 const ExampleRouter = require('./controllers/example')
 const UserRouter = require('./controllers/user')
 const ReviewRouter = require('./controllers/reviewControllers')
+const CartRouter = require('./controllers/cartControllers')
 const User = require("./models/user")
 // SEE MORE DEPENDENCIES IN ./utils/middleware.js
 // user and resource routes linked in ./utils/middleware.js
@@ -25,6 +26,7 @@ middleware(app)
 
 app.use('/banhmis', BanhmiRouter)
 app.use('/reviews', ReviewRouter)
+app.use('/cart', CartRouter)
 app.use('/auth', UserRouter)
 app.use('/examples', ExampleRouter)
 
