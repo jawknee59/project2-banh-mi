@@ -78,11 +78,13 @@ router.get('/seed', (req, res) => {
 // INDEX route 
 // Read -> finds and displays all banhmis
 router.get('/', (req, res) => {
+    const { username, loggedIn, userId} = req.session
     Banhmi.find({})
         .populate('owner', 'username')
         .populate('reviews.author', '-password')
         .then(banhmis => {
-            res.json( {banhmis: banhmis})
+            // res.json( {banhmis: banhmis})
+            res.render('banhmi/', { banhmis, username, loggedIn, userId})
         })
         .catch(err => {
             res.json({ err })

@@ -1,5 +1,6 @@
 // import dependencies
 const mongoose = require('./connection')
+// import reviewSchema to use as a subdocument
 const reviewSchema = require('./review')
 
 // destructure the schema and model constructors from mongoose

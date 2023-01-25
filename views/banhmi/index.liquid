@@ -1,0 +1,30 @@
+{% layout 'layout.liquid'%}
+{% block content %}
+<div>
+    <h2 class="display-6">Banh Mi</h2>
+    <div class="row">
+        {% for banhmi in banhmis %}
+        <div class="card me-3 mb-3" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <h5 class="card-header">{{ banhmi.viet }}</h5>
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ banhmi.english }}
+                </h5>
+                <p class="card-text me-3">
+                    <b>Includes:</b> 
+                    {% for item in banhmi.includes limit: banhmi.includes.length %}
+                        {{- item -}}, 
+                    {% endfor %}
+                </p>
+                <p class="card-text">
+                    ${{ banhmi.price }} 
+                </p>
+                <button class="btn btn-success">Add to Cart</button>
+                <button class="btn btn-secondary">Reviews</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
