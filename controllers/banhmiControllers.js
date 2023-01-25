@@ -177,7 +177,8 @@ router.get('/:id', (req, res) => {
         })
         .catch(err => {
             // console.log(err)
-            res.json({ err })
+            // res.json({ err })
+            res.redirect(`/error?error=${err}`)
         })
 })
 
