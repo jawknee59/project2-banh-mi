@@ -1,6 +1,7 @@
 {% block content %}
     <div class="card mb-4 shadow">
         <div class="card-body">
+            <p>{{ review.rating }}</p>
             <p>{{ review.note }}</p>
             <div class="d-flex justify-content-between">
                 <small>author: {{ review.author.username }}</small>

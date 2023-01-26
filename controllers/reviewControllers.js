@@ -26,12 +26,16 @@ router.post('/:banhmiId', (req, res) => {
         // this is exactly like how we added the owner to our banhmis
         req.body.author = req.session.userId
         // saves the req.body to a variable for easy reference later
-        const theReview = req.body
+        //const theReview = req.body
+        const { rating, note } = req.body
+        // console.log('this is my rating', rating) // undefined??
+        // console.log('this is my note', note)
         // find a specific banhmi
         Banhmi.findById(banhmiId)
             .then(banhmi => {
+                // console.log(req.body)
                 // create the review(with a req.body)
-                banhmi.reviews.push(theReview)
+                banhmi.reviews.push(req.body)
                 // save the banhmi
                 return banhmi.save()
             })

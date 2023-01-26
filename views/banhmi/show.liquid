@@ -17,7 +17,9 @@
         <form action="/reviews/{{ banhmi.id }}" method="POST">
             <fieldset>
                 <legend>Add Review</legend>
-                <label class="form-label">review:</label>
+                <label class="form-label">Rating:</label>
+                <input type="number" name="rating" class="form-control mb-2">
+                <label class="form-label">Review:</label>
                 <input type="text" name="note" class="form-control mb-2">
             </fieldset>
             <input type="submit" class="btn btn-success" value="add review">
@@ -26,7 +28,7 @@
             <hr>
             {% if banhmi.reviews.length > 0 %}
                 {% for review in banhmi.reviews %}
-                    {% render '../review.liquid', review: review, userId: userId, banhmi: banhmi %}
+                    {% render '../review.liquid', rating: rating, review: review, userId: userId, banhmi: banhmi %}
                 {% endfor %}
 
             {% else %}
