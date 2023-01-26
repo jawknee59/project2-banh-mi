@@ -50,12 +50,6 @@ db.on('open', () => {
             price: 6
         }, 
         { 
-            viet: 'Ga', 
-            english: 'Chicken',
-            includes: banhMiVegs,
-            price: 6
-        }, 
-        { 
             viet: 'Cha Ca', 
             english: 'Fish Patty',
             includes: banhMiVegs,
