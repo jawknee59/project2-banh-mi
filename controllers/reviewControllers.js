@@ -13,6 +13,23 @@ const router = express.Router()
 //// Routes                      ////
 /////////////////////////////////////
 
+// GET Route
+router.get('/', (req, res) => {
+    const { username, loggedIn, userId} = req.session
+    const id = req.params.id
+    Banhmi.findById(id)
+        .populate('reviews.author', 'username')
+        .then(banhmi => {
+            // res.json({ banhmi: banhmi })
+            res.render('banhmi/show.liquid', { banhmi, ...req.session })
+        })
+        .catch(err => {
+            // console.log(err)
+            // res.json({ err })
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
 // POST -> `/reviews/<someBanhmiId>`
 // only loggedin users can post reviews
 // bc we have to refer to a banhmi, we'll do that in the simplest way via the route
@@ -20,13 +37,12 @@ router.post('/:banhmiId', (req, res) => {
     // first we get the banhmiId and save to a variable
     const banhmiId = req.params.banhmiId
     // then we'll protect this route against non-logged in users
-    console.log('this is the session\n', req.session)
+    //console.log('this is the session\n', req.session)
     if (req.session.loggedIn) {
         // if logged in, make the logged in user the author of the review
         // this is exactly like how we added the owner to our banhmis
         req.body.author = req.session.userId
         // saves the req.body to a variable for easy reference later
-        //const theReview = req.body
         const { rating, note } = req.body
         // console.log('this is my rating', rating) // undefined??
         // console.log('this is my note', note)

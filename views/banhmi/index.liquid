@@ -1,10 +1,10 @@
 {% layout 'layout.liquid'%}
 {% block content %}
     <div class="container-md">
-        <h2 class="display-6">Banh Mi</h2>
+        <h1 class="display-6">Banh Mi</h1>
         <div class="row">
             {% for banhmi in banhmis %}
-                <div class="card me-3 mb-3" style="width: 18rem;">
+                <div class="card text-bg-danger me-3 mb-3" style="width: 18rem;">
                     
                     <h5 class="card-header">{{ banhmi.viet }}</h5>
                     <div class="card-body">
@@ -24,7 +24,18 @@
                         <form action="addToCart" method="POST">
                             <button type="submit" class="btn btn-success mb-1">Add to Cart</button>
                         </form>
-                       
+
+                        <form action="/favorites" method="POST">
+                            <fieldset>
+                                <input type="hidden" name="banhmiId" value=" {{ banhmi.id }}">
+                                <input type="hidden" name="viet" value="{{ banhmi.viet }}">
+                                <input type="hidden" name="english" value="{{ banhmi.english }}">
+                                <input type="hidden" name="includes" value="{{ banhmi.includes }}">
+                                <input type="hidden" name="price" value="{{ banhmi.price }}">
+                            </fieldset>
+                            <input type="submit" class="btn btn-warning mb-1" value="Favorites">
+                        </form>
+
                         <a href="/banhmis/{{ banhmi.id }}" class="btn btn-secondary">Reviews</a>
                     </div>
                 </div>

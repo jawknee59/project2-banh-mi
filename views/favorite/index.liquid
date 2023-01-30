@@ -1,0 +1,29 @@
+{% layout 'layout.liquid'%}
+{% block content %}
+<div class="container-md">
+        <h1 class="display-6">This is my favorites</h1>
+        <div class="row">
+            {% for favorite in favorites %}
+                {% if favorite.owner == userId %}
+                <div class="card text-bg-danger me-3 mb-3" style="width: 18rem;">
+                    <h5 class="card-header">{{ favorite.viet }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                        {{ favorite.english }}
+                        </h5>
+                        <p class="card-text me-3">
+                            <b>Includes:</b> 
+                            {% for item in favorite.includes limit: favorite.includes.length %}
+                                {{ item }}, 
+                            {% endfor %}
+                        </p>
+                        <p class="card-text">
+                            ${{ favorite.price }} 
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}
