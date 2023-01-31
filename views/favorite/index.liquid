@@ -21,6 +21,11 @@
                             ${{ favorite.price }} 
                         </p>
                     </div>
+                    {% if favorite.owner == userId %}
+                    <form action="/favorites/delete/{{ favorite.id }}?_method=DELETE" method="POST">
+                        <input class="btn btn-warning mb-1" type="submit" value="Remove">
+                    </form>
+                {% endif %}
                 </div>
                 {% endif %}
                 {% endfor %}

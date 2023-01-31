@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 
 // POST -> `/favorites`
 router.post('/', (req, res) => {
-    // const { viet, english, includes, price } = req.body
+    const { viet, english, includes, price } = req.body
     const { username, loggedIn, userId} = req.session
     //console.log('this is the owner loggedIn: \n', username, userId)
     // console.log('this is banhmiId: \n', req.body.banhmiId)
@@ -65,11 +65,32 @@ router.post('/', (req, res) => {
 })
 
 // DELETE Route
+router.delete('/delete/:id', (req, res) => {
+    const favoriteId = req.params.id
+    console.log('This is the favoriteid', favoriteId)
+    Favorite.findByIdAndRemove(favoriteId)
+        .then(favorite => {
+            if(req.session.loggedIn) {
+                if(favorite.owner == req.session.userId) {
+                    res.redirect('/favorites')
+                } else {
+                    res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20remove%20this%20banhmi%20from%favorites`)
+                }
+            } else {
+                res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20remove%20this%20banhmi%20from%favorites`)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.redirect(`/error?error=${err}`)
+        })
 
-
+})
 
 //////////////////////////////
 //// Export Router        ////
 //////////////////////////////
 module.exports = router
+
+
 

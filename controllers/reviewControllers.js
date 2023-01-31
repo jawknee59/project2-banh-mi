@@ -75,6 +75,7 @@ router.post('/:banhmiId', (req, res) => {
 router.delete('/delete/:banhmiId/:reviewId', (req, res) => {
     // isolate the ids and save to variables so we don't have to keep typing req.params
     const { banhmiId, reviewId } = req.params
+    console.log('this is the reviewId: \n', reviewId)
     // get the banhmi
     Banhmi.findById(banhmiId)
         .then(banhmi => {

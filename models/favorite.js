@@ -10,9 +10,6 @@ const favoriteSchema = new Schema ({
     banhmiId: {
         type: String
     },
-    owner: {
-        type: String
-    },
     viet: { 
         type: String
     },
@@ -24,6 +21,9 @@ const favoriteSchema = new Schema ({
     },
     price: { 
         type: Number
+    },
+    owner: {
+        type: String
     }
 })
 
