@@ -4,7 +4,6 @@
 const express = require('express')
 require('dotenv').config()
 const Favorite = require('../models/favorite')
-const Banhmi = require('../models/banhmi')
 
 /////////////////////////////////////
 //// Create Router               ////
@@ -40,7 +39,7 @@ router.post('/', (req, res) => {
     // console.log('this is banhmi includes: \n', includes)
     // console.log('this is banhmi price: \n', price)
     req.body.owner = req.session.userId
-    console.log('this is the username, loggedIn, UserId', req.session)
+    // console.log('this is the username, loggedIn, UserId', req.session)
     if (req.session.loggedIn) {
         // if logged in, make the logged in user the author of the review
         const fav = {
@@ -51,11 +50,11 @@ router.post('/', (req, res) => {
             includes: req.body.includes,
             price: req.body.price
         }
-        console.log('this is my fav object', fav)
+        // console.log('this is my fav object', fav)
         // this is exactly like how we added the owner to our banhmis
         Favorite.create(fav)
             .then(({}) => {
-                res.redirect('banhmis')
+                res.redirect('/banhmis')
             })
             .catch(err => {
                 console.log('This is the following error: ', err)
@@ -67,7 +66,7 @@ router.post('/', (req, res) => {
 // DELETE Route
 router.delete('/delete/:id', (req, res) => {
     const favoriteId = req.params.id
-    console.log('This is the favoriteid', favoriteId)
+    // console.log('This is the favoriteid to be removed', favoriteId)
     Favorite.findByIdAndRemove(favoriteId)
         .then(favorite => {
             if(req.session.loggedIn) {

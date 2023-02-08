@@ -5,7 +5,6 @@
         <div class="row">
             {% for banhmi in banhmis %}
                 <div class="card text-bg-danger me-3 mb-3" style="width: 18rem;">
-                    
                     <h5 class="card-header">{{ banhmi.viet }}</h5>
                     <div class="card-body">
                         <h5 class="card-title">
@@ -20,9 +19,12 @@
                         <p class="card-text">
                             ${{ banhmi.price }} 
                         </p>
-                        
-                        <form action="addToCart" method="POST">
-                            <button type="submit" class="btn btn-success mb-1">Add to Cart</button>
+
+                        <form action="/cart/{{ banhmi.id }}" method="POST">
+                            <fieldset>
+                                <input type="hidden" name="banhmiId" value=" {{ banhmi.id }}">
+                            </fieldset>
+                            <input type="submit" class="btn btn-success mb-1" value="Add to Cart">
                         </form>
 
                         <form action="/favorites" method="POST">
@@ -35,7 +37,6 @@
                             </fieldset>
                             <input type="submit" class="btn btn-warning mb-1" value="Favorites">
                         </form>
-
                         <a href="/banhmis/{{ banhmi.id }}" class="btn btn-secondary">Reviews</a>
                     </div>
                 </div>
