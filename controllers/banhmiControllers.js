@@ -23,8 +23,9 @@ router.get('/', (req, res) => {
             res.render('banhmi/', { banhmis, username, loggedIn, userId})
         })
         .catch(err => {
-            console.log('This is the occurring error: ', err)
-            res.json({ err })
+            // console.log('This is the occurring error: ', err)
+            // res.json({ err })
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -87,7 +88,7 @@ router.get('/json', (req, res) => {
         })
         .catch(err => {
             // otherwise throw an error
-            console.log(err)
+            // console.log(err)
             res.status(400).json(err)
         })
 })
@@ -116,8 +117,9 @@ router.put('/:id', (req, res) => {
             res.redirect('/banhmis')
         })
         .catch(err => {
-            console.log(err)
-            res.json({ err })
+            // console.log(err)
+            // res.json({ err })
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -132,7 +134,8 @@ router.delete('/:id', (req, res) => {
         })
         .catch(err => {
             // console.log(err)
-            res.json({ err })
+            // res.json({ err })
+            res.redirect(`/error?error=${err}`)
         })
 })
 
