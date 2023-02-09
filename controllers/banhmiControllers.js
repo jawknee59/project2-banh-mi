@@ -28,6 +28,12 @@ router.get('/', (req, res) => {
         })
 })
 
+// GET for the new page
+// shows a form where a user can create a new banh mi
+router.get('/new', (req, res) => {
+    res.render('banhmi/new', { ...req.session })
+})
+
 // CREATE route 
 // Create -> receives a request body, and creates a new document in the database
 router.post('/', (req, res) => {
@@ -35,11 +41,13 @@ router.post('/', (req, res) => {
     console.log('This is req.body aka newBanhmi \n', newBanhmi)
     Banhmi.create(newBanhmi)
         .then(banhmi => {
-            res.status(201).json({ banhmi: banhmi.toObject() })
+            //res.status(201).json({ banhmi: banhmi.toObject() })
+            res.redirect(`/banhmis/${banhmi.id}`)
         })
         .catch(err => {
             console.log('The following error occurred: \n', err)
-            res.json({ err })
+            //res.json({ err })
+            res.redirect(`/error?error=${err}`)
         })
 })
 

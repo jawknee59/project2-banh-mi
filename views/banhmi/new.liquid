@@ -1,0 +1,36 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+    <div class="container-sm">
+        <form action="/banhmis" method="POST">
+            <fieldset>
+                <legend>Create New Banh Mi</legend>
+                <label class="form-label">Viet:</label>
+                <input 
+                    type="text" class="form-control m-2" 
+                    name="viet" placeholder="What kind of banh mi is it (in Vietnamese)?"
+                    required
+                >
+                <label class="form-label">English:</label>
+                <input 
+                    type="text" class="form-control m-2" 
+                    name="english" placeholder="What is the English name of the banh mi?"
+                    required
+                >
+                <label class="form-label">Includes:</label>
+                <input 
+                    type="text" class="form-control m-2" 
+                    name="includes" placeholder="What is inside the banh mi?"
+                    required
+                >
+                <label class="form-label">Price:</label>
+                <input 
+                    type="number" class="form-control m-2" 
+                    name="price" placeholder="How much does the banh mi cost?"
+                    required
+                >
+            </fieldset>
+            <input type="submit" class="btn btn-success m-2" value="Create New Banh Mi">
+        </form>
+    </div>
+{% endblock %}
+
