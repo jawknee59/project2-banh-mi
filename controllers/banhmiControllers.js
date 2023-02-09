@@ -112,7 +112,8 @@ router.put('/:id', (req, res) => {
     const id = req.params.id
     Banhmi.findByIdAndUpdate(id, req.body, { new: true })
         .then(banhmi => {
-            res.sendStatus(204)
+            //res.sendStatus(204)
+            res.redirect('/banhmis')
         })
         .catch(err => {
             console.log(err)
@@ -126,7 +127,8 @@ router.delete('/:id', (req, res) => {
     const id = req.params.id
     Banhmi.findByIdAndRemove(id)
         .then(() => {
-            res.sendStatus(204)
+            // res.sendStatus(204)
+            res.redirect('/banhmis')
         })
         .catch(err => {
             // console.log(err)
