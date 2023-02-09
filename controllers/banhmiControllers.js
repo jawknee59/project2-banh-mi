@@ -51,6 +51,61 @@ router.post('/', (req, res) => {
         })
 })
 
+// GET route
+// Index -> This is a user specific index route
+// this will only show the logged in user's banhmis
+router.get('/mine', (req, res) => {
+    // find banhmis by ownership, using the req.session info
+    Banhmi.find({ owner: req.session.userId })
+        .populate('owner', 'username')
+        .populate('comments.author', '-password')
+        .then(banhmis => {
+            // if found, display the banhmis
+            // res.status(200).json({ banhmis: banhmis })
+            res.render('banhmi/index', { banhmis, ...req.session })
+        })
+        .catch(err => {
+            // otherwise throw an error
+            console.log(err)
+            // res.status(400).json(err)
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
+// GET route for getting json for specific user banhmis
+// Index -> This is a user specific index route
+// this will only show the logged in user's banhmis
+router.get('/json', (req, res) => {
+    // find banhmis by ownership, using the req.session info
+    Banhmi.find({ owner: req.session.userId })
+        .populate('owner', 'username')
+        .populate('comments.author', '-password')
+        .then(banhmis => {
+            // if found, display the banhmis
+            res.status(200).json({ banhmis: banhmis })
+            // res.render('banhmis/index', { banhmis, ...req.session })
+        })
+        .catch(err => {
+            // otherwise throw an error
+            console.log(err)
+            res.status(400).json(err)
+        })
+})
+
+// GET request -> edit route
+// shows the form for updating a banhmi
+router.get('/edit/:id', (req, res) => {
+    // because we're editing a specific banhmi, we want to be able to access the banhmi's initial values. so we can use that info on the page.
+    const banhmiId = req.params.id
+    Banhmi.findById(banhmiId)
+        .then(banhmi => {
+            res.render('banhmi/edit', { banhmi, ...req.session })
+        })
+        .catch(err => {
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
 // UPDATE route
 // Update -> a specific banhmi
 router.put('/:id', (req, res) => {

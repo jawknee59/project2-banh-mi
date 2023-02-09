@@ -21,7 +21,7 @@ const banhmiSchema = new Schema({
             type: Number
         },
 		owner: {
-			type: Schema.Types.ObjectID,
+			type: Schema.Types.ObjectId,
 			ref: 'User',
 		},
         reviews: [reviewSchema]
